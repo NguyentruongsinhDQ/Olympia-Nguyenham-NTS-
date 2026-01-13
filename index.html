@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olympia Game Player</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; } 
+    .katex { font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    
+      const gameData = {"generatedSets":[{"id":1,"name":"Bộ câu hỏi số 1","questions":[{"id":"q-9","level":"DEFAULT","question":"Tìm nguyên hàm của hàm số $f(x) = \\sin x - 9$.","answer":"Ta có $\\int (\\sin x - 9) dx = -\\cos x - 9x + C$"},{"id":"q-0","level":"DEFAULT","question":"Tìm họ nguyên hàm của hàm số $f(x) = \\cos x$.","answer":"Ta có $\\int \\cos x dx = \\sin x + C$"},{"id":"q-15","level":"DEFAULT","question":"Nguyên hàm của hàm số $f(x) = 2026^x$ là gì?","answer":"Ta có $\\int 2026^x dx = \\frac{2026^x}{\\ln 2026} + C$"},{"id":"q-16","level":"DEFAULT","question":"Biết rằng $F(x) = x^3 + e^x$ là một nguyên hàm của hàm số $f(x)$. Tính giá trị $f(1)$.","answer":"Ta có $f(x) = F'(x) = 3x^2 + e^x \n\\Rightarrow f(1) = 3 + e$"},{"id":"q-19","level":"H","question":" Tìm họ nguyên hàm của hàm số $f(x) = \\tan^2 x + 1$.","answer":"Ta có $\\int (\\tan^2 x + 1) dx = \\int \\frac{1}{\\cos^2 x} dx = \\tan x + C$"}]},{"id":2,"name":"Bộ câu hỏi số 2","questions":[{"id":"q-7","level":"DEFAULT","question":"Tìm nguyên hàm của hàm số $f(x) = \\cos x - 4x$.","answer":"Ta có $\\int (\\cos x - 4x) dx\n= \\sin x - 2x^2 + C$"},{"id":"q-11","level":"DEFAULT","question":"Một nguyên hàm của hàm số\n $y = 5x^4$ là hàm số nào?","answer":"Họ nguyên hàm là: $y = x^5 + C$ \nMột nguyên hàn là : $x^5$"},{"id":"q-10","level":"DEFAULT","question":"Họ nguyên hàm của hàm số $f(x) = \\frac{3}{\\cos^2 x}$ với $x \\neq \\frac{\\pi}{2} + k\\pi$ là gì?","answer":"Ta có $\\int \\frac{3}{\\cos^2 x} dx = 3\\tan x + C$"},{"id":"q-18","level":"DEFAULT","question":"Tìm họ nguyên hàm của hàm số $f(x) = x^3 - x$.","answer":"Ta có $\\int (x^3 - x) dx = \\frac{x^4}{4} - \\frac{x^2}{2} + C$"},{"id":"q-12","level":"H","question":"Cho $\\int 4^x dx = F(x) + C$. Khi đó hàm số đạo hàm $F'(x)$ bằng bao nhiêu?","answer":"Ta có $F'(x) = f(x) = 4^x$"}]},{"id":3,"name":"Bộ câu hỏi số 3","questions":[{"id":"q-5","level":"DEFAULT","question":"Tính nguyên hàm của hàm số $f(x) = 4\\sin x + 2^x$.","answer":"Ta có $\\int (4\\sin x + 2^x) dx                         \n            = -4\\cos x + \\frac{2^x}{\\ln 2} + C$"},{"id":"q-3","level":"DEFAULT","question":"Tìm tất cả nguyên hàm $F(x)$ của hàm số $f(x) = 2x + \\frac{1}{x}$.","answer":"Ta có $F(x) = \\int (2x + \\frac{1}{x}) dx\n = x^2 + \\ln|x| + C$"},{"id":"q-17","level":"H","question":"Hàm số $F(x) = 2x^3 + 5$ là một nguyên hàm của hàm số nào?","answer":"Ta có $f(x) = F'(x) = (2x^3 + 5)' = 6x^2$"},{"id":"q-6","level":"DEFAULT","question":"Mệnh đề sau là đúng hay sai :\n$\\int k \\cdot f(x) dx = k \\int f(x) dx$ (với $k$ là hằng số khác 0) ?","answer":"Đúng (Tính chất cơ bản của nguyên hàm)."},{"id":"q-1","level":"DEFAULT","question":"Nguyên hàm của hàm số \n$f(x) = 5^x$ là gì?","answer":"Ta có $\\int 5^x dx = \\frac{5^x}{\\ln 5} + C$"}]},{"id":4,"name":"Bộ câu hỏi số 4","questions":[{"id":"q-4","level":"DEFAULT","question":"Họ nguyên hàm của hàm số $f(x) = 2e^x + 5$ trên $\\mathbb{R}$ là gì?","answer":"Ta có $\\int (2e^x + 5) dx = 2e^x + 5x + C$"},{"id":"q-13","level":"H","question":"Cho $\\int (3x^2 - 1) dx = F(x) + C$. Khi đó $F'(x)$ bằng bao nhiêu?","answer":"Ta có $F'(x) = 3x^2 - 1$"},{"id":"q-8","level":"DEFAULT","question":"Họ nguyên hàm của hàm số $f(x) = e^x - \\sin x$ là gì?","answer":"Ta có $\\int (e^x - \\sin x) dx = e^x + \\cos x + C$"},{"id":"q-2","level":"DEFAULT","question":"Tìm họ nguyên hàm của hàm số $f(x) = \\cos x - \\frac{1}{\\sin^2 x}$.","answer":"Ta có $\\int (\\cos x - \\frac{1}{\\sin^2 x}) dx\n = \\sin x + \\cot x + C$"},{"id":"q-14","level":"DEFAULT","question":"Họ nguyên hàm của hàm số $f(x) = x^{2023}$ là gì?","answer":"Ta có $\\int x^{2023} dx = \\frac{1}{2024}x^{2024} + C$"}]}],"config":{"numSets":4,"questionsPerSet":5,"timePerSet":120},"timestamp":"1/13/2026, 10:27:30 AM"};
+      let currentSetIndex = 0;
+      let questions = [];
+      let currentQIndex = 0;
+      let score = 0;
+      let timeLeft = gameData.config.timePerSet;
+      let timerInterval = null;
+      let isPlaying = false;
+      let isStar = false;
+      let showAnswer = false;
+      let helpQueue = [];
+      let isHelpRound = false;
+      
+      const app = document.getElementById('app');
+
+      function renderMath() {
+        if(window.renderMathInElement) {
+          renderMathInElement(document.body, {
+            delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+
+      function renderSelection() {
+        clearInterval(timerInterval);
+        app.innerHTML = `
+          <div class="min-h-screen bg-gradient-to-br from-blue-900 to-slate-900 p-8 font-sans flex flex-col">
+            <header class="flex justify-between items-center mb-12">
+              <div>
+                <h1 class="text-4xl font-bold text-white uppercase tracking-widest drop-shadow-md">VÒNG 1-KHỞI ĐỘNG CÙNG ĐỒNG ĐỘI</h1>
+                <p class="text-blue-300 mt-2">Dữ liệu xuất lúc: ${gameData.timestamp}</p>
+              </div>
+            </header>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              ${gameData.generatedSets.map((set, idx) => `
+                <button onclick="startGame(${idx})" class="group relative h-64 rounded-2xl flex flex-col items-center justify-center border-2 border-blue-400/50 bg-white/10 hover:bg-blue-600 hover:scale-105 transition-all cursor-pointer shadow-lg">
+                  <div class="p-6 rounded-full mb-4 bg-white text-blue-900">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  </div>
+                  <h2 class="text-2xl font-bold text-white uppercase tracking-wider">${set.name}</h2>
+                  <span class="text-blue-200 text-sm mt-2">${set.questions.length} câu</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      window.startGame = function(idx) {
+        currentSetIndex = idx;
+        questions = gameData.generatedSets[idx].questions;
+        currentQIndex = 0;
+        score = 0;
+        timeLeft = Number(gameData.config.timePerSet);
+        isStar = false;
+        showAnswer = false;
+        helpQueue = [];
+        isHelpRound = false;
+        
+        isPlaying = true;
+        if(timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if(timeLeft > 0) {
+              timeLeft--;
+              renderGame();
+            } else {
+              clearInterval(timerInterval);
+              isPlaying = false;
+              renderGame();
+            }
+        }, 1000);
+
+        renderGame();
+      }
+
+      function renderGame() {
+        if(currentQIndex >= questions.length && !isHelpRound) {
+            renderEndOfMainRound();
+            return;
+        }
+        if(isHelpRound && currentQIndex >= questions.length) {
+            renderFinished();
+            return;
+        }
+
+        const q = questions[currentQIndex];
+        const radius = 40;
+        const circumference = 2 * Math.PI * radius;
+        const totalTime = Number(gameData.config.timePerSet);
+        const offset = circumference - (timeLeft / totalTime) * circumference;
+
+        app.innerHTML = `
+          <div class="min-h-screen bg-[#0f172a] text-white overflow-hidden relative font-sans flex flex-col">
+            <header class="relative z-10 flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/10 backdrop-blur-md">
+              <div class="flex items-center gap-4">
+                <div class="bg-blue-600 px-4 py-1 rounded text-sm font-bold shadow-lg">${gameData.generatedSets[currentSetIndex].name}</div>
+                <div class="px-4 py-1 rounded text-sm font-bold shadow-lg ${isHelpRound ? 'bg-red-600 animate-pulse' : 'bg-slate-700'}">${isHelpRound ? 'VÒNG TRỢ GIÚP' : 'VÒNG CHÍNH'}</div>
+              </div>
+              <div class="flex items-center gap-6">
+                <div class="flex items-center gap-4 bg-black/20 px-5 py-2 rounded-2xl border border-white/5">
+                  <span className="text-sm font-bold text-slate-300 uppercase tracking-wider">Tổng điểm</span>
+                  <span class="text-5xl font-bold text-yellow-400 font-mono leading-none drop-shadow-[0_2px_10px_rgba(250,204,21,0.5)]">${score}</span>
+                </div>
+                <button onclick="renderSelection()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-bold border border-slate-500">🏠 Về Menu</button>
+              </div>
+            </header>
+
+            <main class="relative z-10 flex-1 flex flex-col items-center justify-center p-6 w-full max-w-7xl mx-auto">
+               <div class="w-full bg-white/10 border border-white/20 rounded-3xl p-8 backdrop-blur-md shadow-2xl relative min-h-[400px] flex flex-col justify-center">
+                  <div class="absolute top-6 left-8 flex items-center gap-3">
+                    <span class="bg-slate-800 text-slate-300 px-3 py-1 rounded-full text-sm font-bold border border-slate-600">Câu ${currentQIndex + 1} / ${questions.length}</span>
+                    ${isStar ? '<span class="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1 animate-pulse shadow-yellow-500/50 shadow-lg">⭐ NGÔI SAO HY VỌNG</span>' : ''}
+                  </div>
+                  <div class="text-center space-y-8 mt-6">
+                    <div class="text-3xl md:text-5xl font-bold leading-tight drop-shadow-md text-white whitespace-pre-line font-sans leading-loose">${q.question}</div>
+                    <div class="transition-all duration-300 overflow-hidden ${showAnswer ? 'max-h-80 opacity-100 mt-8' : 'max-h-0 opacity-0'}">
+                        <div class="inline-block bg-green-600/90 text-white px-8 py-4 rounded-xl text-2xl font-bold shadow-lg border border-green-400/50 font-sans leading-loose">${q.answer}</div>
+                    </div>
+                  </div>
+               </div>
+
+               <div class="w-full mt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div class="flex items-center gap-4">
+                    <div class="relative w-24 h-24">
+                        <svg class="w-full h-full transform -rotate-90">
+                          <circle cx="48" cy="48" r="40" stroke="#334155" stroke-width="6" fill="transparent" />
+                          <circle cx="48" cy="48" r="40" stroke="${timeLeft < 10 ? '#ef4444' : '#3b82f6'}" stroke-width="6" fill="transparent" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" class="transition-all duration-1000" />
+                        </svg>
+                        <span class="absolute inset-0 flex items-center justify-center text-2xl font-bold font-mono">${timeLeft}s</span>
+                    </div>
+                    <button onclick="toggleTimer()" class="p-4 bg-slate-700 rounded-full hover:bg-slate-600 shadow-lg">${isPlaying ? '⏸️' : '▶️'}</button>
+                    <button onclick="resetTimer()" class="p-4 bg-slate-700 rounded-full hover:bg-slate-600 shadow-lg">🔄</button>
+                  </div>
+
+                  <div class="flex items-center gap-4">
+                    ${!showAnswer ? `
+                      ${!isHelpRound ? `<button onclick="toggleStar()" class="px-6 py-4 rounded-xl font-bold flex items-center gap-2 border ${isStar ? 'bg-yellow-500 text-black border-yellow-400' : 'bg-slate-800 text-slate-400 border-slate-700'}">⭐ Ngôi Sao</button>` : ''}
+                      <button onclick="handleSkip()" class="px-6 py-4 bg-slate-700 text-slate-200 border border-slate-600 rounded-xl font-bold hover:bg-red-900/50">⏭️ Bỏ qua</button>
+                      <button onclick="revealAnswer()" class="px-6 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-500 shadow-lg">👁️ Hiện đáp án</button>
+                    ` : `
+                      <button onclick="handleGrade(false)" class="px-8 py-4 bg-red-600/20 text-red-400 border border-red-600/50 rounded-xl font-bold hover:bg-red-600 hover:text-white">❌ SAI</button>
+                      <button onclick="handleGrade(true)" class="px-8 py-4 bg-green-600 text-white rounded-xl font-bold hover:bg-green-500 shadow-lg">✅ ĐÚNG</button>
+                    `}
+                  </div>
+               </div>
+            </main>
+          </div>
+        `;
+        renderMath();
+      }
+
+      window.toggleTimer = function() {
+        if(isPlaying) {
+          clearInterval(timerInterval);
+          isPlaying = false;
+        } else {
+          isPlaying = true;
+          timerInterval = setInterval(() => {
+            if(timeLeft > 0) {
+              timeLeft--;
+              renderGame();
+            } else {
+              clearInterval(timerInterval);
+              isPlaying = false;
+              renderGame();
+            }
+          }, 1000);
+        }
+        renderGame();
+      }
+
+      window.resetTimer = function() {
+        timeLeft = Number(gameData.config.timePerSet);
+        renderGame();
+      }
+
+      window.toggleStar = function() {
+        isStar = !isStar;
+        renderGame();
+      }
+
+      window.revealAnswer = function() {
+        showAnswer = true;
+        clearInterval(timerInterval);
+        isPlaying = false;
+        renderGame();
+      }
+
+      window.handleSkip = function() {
+        let change = 0;
+        if(isStar && !isHelpRound) change = -5;
+        score += change;
+        if(!isHelpRound) helpQueue.push(questions[currentQIndex]);
+        nextQuestion();
+      }
+
+      window.handleGrade = function(correct) {
+        let change = 0;
+        if(correct) {
+            if(isHelpRound) change = 2.5;
+            else change = isStar ? 10 : 5;
+        } else {
+            if(!isHelpRound) {
+              change = isStar ? -5 : 0;
+              helpQueue.push(questions[currentQIndex]);
+            }
+        }
+        score += change;
+        nextQuestion();
+      }
+
+      function nextQuestion() {
+        currentQIndex++;
+        isStar = false;
+        showAnswer = false;
+        isPlaying = true;
+        if(timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if(timeLeft > 0) {
+              timeLeft--;
+              renderGame();
+            } else {
+              clearInterval(timerInterval);
+              isPlaying = false;
+              renderGame();
+            }
+        }, 1000);
+        renderGame();
+      }
+
+      function renderEndOfMainRound() {
+        if(helpQueue.length > 0) {
+            app.innerHTML = `
+              <div class="min-h-screen bg-slate-900 flex items-center justify-center text-white text-center p-8">
+                <div>
+                  <h1 class="text-5xl font-bold text-orange-500 mb-6">⚠️ KẾT THÚC VÒNG CHÍNH</h1>
+                  <p class="text-2xl mb-8">Có <strong>${helpQueue.length}</strong> câu hỏi trong hàng đợi trợ giúp.</p>
+                  <button onclick="startHelpRound()" class="px-10 py-4 bg-purple-600 hover:bg-purple-500 rounded-full text-xl font-bold shadow-lg animate-pulse">
+                    🕒 BẮT ĐẦU VÒNG TRỢ GIÚP
+                  </button>
+                </div>
+              </div>
+            `;
+        } else {
+            renderFinished();
+        }
+      }
+
+      window.startHelpRound = function() {
+        isHelpRound = true;
+        questions = helpQueue;
+        currentQIndex = 0;
+        isStar = false;
+        showAnswer = false;
+        isPlaying = false;
+        renderGame();
+      }
+
+      function renderFinished() {
+        app.innerHTML = `
+              <div class="min-h-screen bg-slate-900 flex items-center justify-center text-white text-center p-8">
+                <div>
+                  <h1 class="text-6xl font-bold text-yellow-400 mb-6">🏆 HOÀN THÀNH</h1>
+                  <p class="text-3xl mb-8">Tổng điểm: <strong class="text-yellow-300">${score}</strong></p>
+                  <button onclick="renderSelection()" class="px-8 py-3 bg-white text-slate-900 rounded-full text-lg font-bold hover:bg-blue-50">Về Menu Chính</button>
+                </div>
+              </div>
+        `;
+      }
+
+      renderSelection();
+    
+  </script>
+</body>
+</html>
